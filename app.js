@@ -6,9 +6,15 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 //var usersRouter = require('./routes/users');
-var api = require('./routes/api.js');
 
 var app = express();
+var server = require('http').Server(app);
+var expressWs = require('express-ws')(app, server);
+
+var api = require('./routes/api.js');
+var config = require('./config.js');
+// mysql db for websocket
+var Hotstory = require('./database/hotstory.db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,4 +45,33 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+function broadcastWsMsg(msg) {
+  expressWs.getWss().clients.forEach(function each(websocket) {
+    if (websocket.isAlive === false) return websocket.terminate();
+    websocket.send(msg);
+  });
+}
+
+// websocket
+setInterval(function bc() {
+  console.log('try to get latest hotstories');
+  var props = {};
+  var hotstory = new Hotstory({props: props});
+  var duration = config.duration;
+  var limit = config.limit;
+  hotstory.getLatestHotstories(duration, limit ,function(err, data) {
+    if (data.length) {
+      broadcastWsMsg(JSON.stringify(data));
+    } else {
+      console.log(err);
+      let resp = {
+        "code": 0,
+        "msg": "failed get latest hotstories",
+      }
+      broadcastWsMsg(JSON.stringify(resp));
+    }
+  });
+}, 10000);
+
+// module.exports = app;
+module.exports = {app: app, server: server};
