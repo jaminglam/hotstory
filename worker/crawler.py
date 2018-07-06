@@ -62,8 +62,15 @@ def crawl_twitter():
         access_token_key='749666587821481984-UCERIivBJ0NShd6b6nKOijLYhYCHsK5',
         access_token_secret='EA3IGzpfeezljnL8aqULswmReTWBqbRjv0Nei20uH2DTA')
     trends = api.GetTrendsCurrent()
-    json_trends = [
-        {'src': src_twitter, 'content': t.name, 'heat': t.volume} for t in trends]
+    json_trends = []
+    for t in trends:
+        heat = 0
+        if t.volume is not None:
+            heat = t.volume
+        json_trends.append(
+            {'src': src_twitter, 'content': t.name, 'heat': heat})
+    # json_trends = [
+    #     {'src': src_twitter, 'content': t.name, 'heat': t.volume} for t in trends]
     # print json_trends
     print "twitter number:"
     print len(json_trends)
