@@ -6,7 +6,6 @@ module.exports = {
     },
     // 获取所有用户信息
     doGetAllHotstories: function(req, res) {
-        console.log('doGetAllHotstories');
         var props = {};  //默认参数为空
         var hotstory = new Hotstory({props: props});
         hotstory.getAllHotstories(function(err, data) {

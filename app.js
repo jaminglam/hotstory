@@ -52,14 +52,13 @@ function broadcastWsMsg(msg) {
   });
 }
 
-// websocket
-setInterval(function bc() {
+function periodicalBroadcast() {
   console.log('try to get latest hotstories');
   var props = {};
   var hotstory = new Hotstory({props: props});
   var duration = config.duration;
   var limit = config.limit;
-  hotstory.getLatestHotstories(duration, limit ,function(err, data) {
+  hotstory.getLatestHotstories(limit ,function(err, data) {
     if (data.length) {
       broadcastWsMsg(JSON.stringify(data));
     } else {
@@ -71,7 +70,11 @@ setInterval(function bc() {
       broadcastWsMsg(JSON.stringify(resp));
     }
   });
-}, 10000);
+}
+
+// websocket
+periodicalBroadcast();
+setInterval(periodicalBroadcast, 60000);
 
 // module.exports = app;
 module.exports = {app: app, server: server};

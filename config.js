@@ -1,6 +1,5 @@
 var config = {
-  duration: 300000,
-  limit: 6,
+  limit: 40,
 }
 
 module.exports = config;

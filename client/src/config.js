@@ -1,4 +1,4 @@
 var config = {
-  num: 6,
+  num: 40,
 }
 module.exports = config;

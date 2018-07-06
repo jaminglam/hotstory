@@ -1,12 +1,25 @@
+var Hotstory = require('../../database/hotstory.db');
+var config = require('../../config');
 module.exports = {
-    // module init
-    init: function(app) {
-        app.ws('/testws', function(ws, req) {
-            ws.on('message', function(msg) {
-                console.log('ws triggered');
-                ws.send('received something');
-            });
+    broadcastData: function(ws, req) {
+      var props = {};  //默认参数为空
+      var hotstory = new Hotstory({props: props});
+      let data = hotstory.getLatestHotstories(config.limit,
+        function (err, data) {
+          if (err) {
+            console.log('empty data');
+            ws.send(JSON.stringify([]));
+          } else {
+            ws.send(JSON.stringify(data));
+          }
         });
+      // console.log('data: ');
+      // console.log(JSON.stringify(data));
+      // ws.send(JSON.stringify(data));
+      console.log('send data done');
+    },
+    init: function(app) {
+        app.ws('/testws', this.broadcastData);
 
     },
 }
