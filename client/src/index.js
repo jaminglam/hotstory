@@ -60,7 +60,15 @@ function SimpleMediaCard(props) {
   let color = srcColor[storysrc];
   let contentStyle = {
     "color": color,
-    "fontSize": '1.2em'
+    "whiteSpace": 'nowrap',
+    "fontSize": '1.2em',
+    "width": '70%',
+    'textOverflow': 'ellipsis',
+    'overflow': 'hidden',
+  }
+  let buttonStyle = {
+    "color": color,
+    "fontSize": "1.1em",
   }
   return (
     <div>
@@ -71,7 +79,7 @@ function SimpleMediaCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" style={contentStyle}>
+          <Button size="small" style={buttonStyle}>
             { heat }
           </Button>
         </CardActions>
@@ -119,6 +127,23 @@ class HotstoryPanel extends Component {
     }
   }
 
+  shuffle(arra1) {
+    var ctr = arra1.length, temp, index;
+
+  // While there are elements in the array
+    while (ctr > 0) {
+  // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+  // Decrease ctr by 1
+        ctr--;
+  // And swap the last element with it
+        temp = arra1[ctr];
+        arra1[ctr] = arra1[index];
+        arra1[index] = temp;
+    }
+    return arra1;
+  }
+
   handleData(data) {
     let hotstoryRecords = JSON.parse(data);
     if (hotstoryRecords.length > 0) {
@@ -131,7 +156,7 @@ class HotstoryPanel extends Component {
         }
       });
       if (newHotstories.length > 0) {
-        let updateHotstories = newHotstories;
+        let updateHotstories = this.shuffle(newHotstories);
         // console.log("update stories");
         // console.log(updateHotstories);
         this.setState({"hotstories": updateHotstories});
