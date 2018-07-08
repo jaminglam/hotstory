@@ -16,6 +16,7 @@ var config = require('./config.js');
 // mysql db for websocket
 var Hotstory = require('./database/hotstory.db');
 
+console.log('config stage: ' + config.stage);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -56,8 +57,7 @@ function periodicalBroadcast() {
   console.log('try to get latest hotstories');
   var props = {};
   var hotstory = new Hotstory({props: props});
-  var duration = config.duration;
-  var limit = config.limit;
+  var limit = config.backend.latestHotstoryLimit;
   hotstory.getLatestHotstories(limit ,function(err, data) {
     if (data.length) {
       broadcastWsMsg(JSON.stringify(data));

@@ -9,6 +9,13 @@ import CardContent from '@material-ui/core/CardContent';
 // import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { config } from './config.js'
+
+
+const wsHost = config.ws.host;
+const wsPort = config.ws.port;
+const wsApiEndpoint = 'testws';
+const wsUrl = 'ws://' + wsHost + ':' + wsPort + '/api/' + wsApiEndpoint;
 
 const panelInlineStyle = {
   backgroundColor: "#373737",
@@ -112,7 +119,6 @@ class HotstoryPanel extends Component {
   }
 
   handleData(data) {
-    const hotstories = this.state.hotstories.slice();
     let hotstoryRecords = JSON.parse(data);
     if (hotstoryRecords.length > 0) {
       let newHotstories = hotstoryRecords.map(function(hotstoryRecord) {
@@ -138,7 +144,7 @@ class HotstoryPanel extends Component {
     return (
       <div style={panelInlineStyle}>
         <div>
-          <Websocket url='ws://localhost:5000/api/testws'
+          <Websocket url={wsUrl}
               onMessage={this.handleData.bind(this)}/>
         </div>
         <CenteredGridSytled hotstories={this.state.hotstories}/>

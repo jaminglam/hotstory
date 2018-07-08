@@ -1,7 +1,7 @@
 var mysql = require('mysql'),
     helper = require('../routes/helper'),
-    config = require('./config.db');
-var con = mysql.createConnection(config);
+    config = require('../config');
+var con = mysql.createConnection(config.db);
 
 var Hotstory = function(hotstory) {
     this.props = hotstory.props  //参数集合，借鉴react设计思想
