@@ -4,7 +4,8 @@ module.exports = {
     broadcastData: function(ws, req) {
       var props = {};  //默认参数为空
       var hotstory = new Hotstory({props: props});
-      let data = hotstory.getLatestHotstories(config.limit,
+      let data = hotstory.getLatestHotstories(
+        config.backend.latestHotstoryLimit,
         function (err, data) {
           if (err) {
             console.log('empty data');

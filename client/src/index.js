@@ -25,7 +25,7 @@ const cardInlineStyle = {
 };
 const gridInlineStyle = {
   width: '20%',
-  padding: '2px',
+  padding: '1px',
   height: '12.5vh'
 };
 // });
@@ -59,7 +59,8 @@ function SimpleMediaCard(props) {
   const { classes, content, storysrc, heat } = props;
   let color = srcColor[storysrc];
   let contentStyle = {
-    "color": color
+    "color": color,
+    "fontSize": '1.2em'
   }
   return (
     <div>

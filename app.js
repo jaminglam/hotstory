@@ -63,6 +63,7 @@ function periodicalBroadcast() {
       broadcastWsMsg(JSON.stringify(data));
     } else {
       console.log(err);
+      console.log('broadcast failed');
       let resp = {
         "code": 0,
         "msg": "failed get latest hotstories",
