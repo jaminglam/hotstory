@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS hotstory;
+
+CREATE TABLE IF NOT EXISTS `hotstory` (
+  `hotstory_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `src` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+  `content` TEXT NULL,
+  `heat` BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
+  `create_ts` INT(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`hotstory_id`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+;
+
