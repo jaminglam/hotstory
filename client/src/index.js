@@ -18,10 +18,10 @@ const wsApiEndpoint = 'testws';
 const wsUrl = 'ws://' + wsHost + ':' + wsPort + '/api/' + wsApiEndpoint;
 
 const panelInlineStyle = {
-  backgroundColor: "#373737",
+  backgroundColor: "#424242",
 };
 const cardInlineStyle = {
-  backgroundColor: '#616161',
+  backgroundColor: '#373737',
 };
 const gridInlineStyle = {
   width: '20%',
@@ -40,7 +40,7 @@ const styles = theme => ({
 });
 
 
-const srcColor = ['#FF3D00', '#66BB6A', '#fafafa'];
+const srcColor = ['#EF5350', '#66BB6A', '#fafafa'];
 // function getRandom(arr, n) {
 //     var result = new Array(n),
 //         len = arr.length,
